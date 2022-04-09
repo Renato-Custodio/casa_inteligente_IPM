@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Casa Inteligente</title>
+    <!-- reference ccs -->
+    <link rel="stylesheet" href="rega.css" />
+</head>
+
+<body>
+    <div id="container">
+        <!-- create a navbar -->
+        <nav class="navbar">
+            <div class="title">
+                <a class="navbar-brand" href="#">Casa Inteligente</a>
+            </div>
+
+            <ul class="navbar-ul">
+                <li onclick="location.href='index.html'">
+                    <a class="nav-link" id="nav-button" href="#" >Overview
+                    </a>
+                </li>
+                <li class="active" onclick="location.href='rega.html'"">
+                    <a class="nav-link" id="nav-button" href="#">Rega</a>
+                </li>
+                <li onclick="location.href='seguranca.html'">
+                    <a class="nav-link" id="nav-button" href="#" >Segurança</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- create body container -->
+        <div class="container">
+            <div class="current-page">
+                <a>Rega</a>
+            </div>
+            <!-- list of blocks -->
+            <div class="blocks-div">
+                <div class="card rega" id="card-regra">
+                    <h3 class="card-title">Rega
+                        <label class="card-text" style="font-size: small; margin-left: 5px;">Varanda</label>
+                    </h3>
+                    <div class="active-regas">
+                        <!-- a time interval picker -->
+                        <div class="time-interval">
+                            <div>
+                                <div style="font-size: small;">
+                                    From
+                                    <div>
+                                        <input type="time" name="time" id="time1" />
+                                    </div>
+                                    TO
+                                    <div>
+                                        <input type="time" name="time" id="time2" />
+                                    </div>
+                                </div>
+                                <div id="time-interval-picker">
+                                    <button id="btn-set" type="button">
+                                        Set
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="main.js"></script>
+</body>
+
+</html>

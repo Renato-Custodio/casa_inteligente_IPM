@@ -1,0 +1,167 @@
+/* display: inline-block; */
+body {
+	background-color: #171717;
+	color: white;
+	font-family: "Open Sans", sans-serif;
+	font-size: 16px;
+	margin: 0;
+}
+
+#container {
+	width: 100%;
+	margin: 0 auto;
+
+	display: grid;
+	grid-template-columns: 250px auto;
+	grid-template-rows: auto;
+	grid-template-areas: "nav main";
+}
+
+.navbar {
+	grid-area: nav;
+	background-color: #202124;
+	/* extend nav untill the bottom of the screen */
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.container {
+	grid-area: main;
+}
+
+.navbar-ul {
+	list-style-type: none;
+	padding-left: 0;
+	margin: 0;
+}
+
+.title {
+	text-align: center;
+	/* outline: 1px solid white; */
+	padding: 10px;
+	/* set only bottom outline */
+	border-bottom: 1px solid #171717;
+}
+
+.navbar-brand {
+	font-size: 25px;
+	color: white;
+	text-decoration: none;
+}
+
+.navbar-ul li {
+	padding: 10px;
+	border-radius: 5px;
+	background-color: rgb(58, 58, 58);
+	margin: 15px;
+}
+
+.navbar-ul li:hover {
+	background-color: rgb(104, 104, 104);
+	box-shadow: 0px 0px 5px 0px white;
+}
+
+.active {
+	box-shadow: 0px 0px 5px 0px white;
+}
+
+#nav-button {
+	color: white;
+	text-decoration: none;
+}
+
+.current-page {
+	/* vertical size to 50px */
+	height: 50px;
+	/* certer text on vertical axies */
+	display: flex;
+	align-items: center;
+	padding-left: 20px;
+	font-size: 20px;
+}
+
+.blocks-div {
+	/* ajust blocks if dont fit on screen */
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.card {
+	padding: 10px;
+	border-radius: 10px;
+	background-color: rgb(58, 58, 58);
+	margin: 15px;
+	width: 250px;
+	/* align items vetically */
+	display: flex;
+	flex-direction: column;
+}
+
+.card-ident {
+	/* align items horizontally */
+	display: flex;
+	flex-direction: row;
+}
+
+.btn-pls {
+	/* round feft corners */
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+	background-color: rgb(58, 58, 58);
+	/* color: white; */
+	width: 40px;
+	height: 30px;
+	text-align: center;
+}
+
+.btn-mns {
+	/* round feft corners */
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	background-color: rgb(58, 58, 58);
+	/* color: white; */
+	width: 40px;
+	height: 30px;
+	text-align: center;
+}
+
+.sidenav {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+}
+
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+}
+
+.sidenav a:hover {
+	color: #f1f1f1;
+	background-color: gray;
+}
+
+.sidenav a:active {
+	background-color: #000;
+	color: white;
+}
+
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}

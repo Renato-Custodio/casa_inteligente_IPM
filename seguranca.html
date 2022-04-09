@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>segurança</title>
+    <!-- reference ccs -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div id="container">
+        <span id="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+        <!-- create a navbar -->
+        <nav class="navbar">
+            <div class="title">
+                <a class="navbar-brand" href="#">Casa Inteligente</a>
+            </div>
+
+            <ul class="navbar-ul">
+                <li onclick="location.href='index.html'">
+                    <a class="nav-link" id="nav-button" href="#" >Overview
+                </li>
+                <li onclick="location.href='rega.html'">
+                    <a class="nav-link" id="nav-button" href="#" >Rega</a>
+                </li>
+                <li class="active" onclick="location.href='seguranca.html'">
+                    <a class="nav-link" id="nav-button" href="#" >Segurança</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- create body container -->
+        <div class="container">
+            <div class="current-page">
+                <a>Segurança</a>
+            </div>
+            <!-- list of blocks -->
+            <div class="blocks-div">
+                <div class="card">
+                    <div class="card-ident">
+                        <i class="material-icons">
+                            <img src="img/shield-lock.png" alt="shield" />
+                        </i>
+                        <h3 class="card-title">Segurança</h3>
+                    </div>
+                    <p class="card-text">Sem ameaças.</p>
+                </div>
+            </div>
+</body>
+
+</html>

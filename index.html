@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Casa Inteligente</title>
+		<!-- reference ccs -->
+		<link rel="stylesheet" href="style.css" />
+	</head>
+
+	<body>
+		<div id="container">
+			<!-- create a navbar -->
+			<nav class="navbar">
+				<div class="title">
+					<a class="navbar-brand" href="#">Casa Inteligente</a>
+				</div>
+
+				<ul class="navbar-ul">
+					<li class="active" onclick="location.href='index.html'">
+						<a class="nav-link" id="nav-button" href="#"
+							>Overview
+						</a>
+					</li>
+					<li onclick="location.href='rega.html'">
+						<a class="nav-link" id="nav-button" href="#">Rega</a>
+					</li>
+					<li onclick="location.href='seguranca.html'">
+						<a class="nav-link" id="nav-button" href="#"
+							>Segurança</a
+						>
+					</li>
+				</ul>
+			</nav>
+			<!-- create body container -->
+			<div class="container">
+				<script src="main.js"></script>
+				<div class="current-page">
+					<a>Overview</a>
+				</div>
+				<!-- list of blocks -->
+				<div class="blocks-div">
+					<div class="card" id="cozinha">
+						<div class="card-ident">
+							<i class="material-icons">
+								<img
+									src="img/thermometer.png"
+									alt="thermometer"
+								/>
+							</i>
+							<h3 class="card-title">Cozinha</h3>
+						</div>
+						<div class="buttons">
+							<button class="btn-pls" onclick="decrease()">
+								<img src="img/minus.png" alt="minus" />
+							</button>
+							<button class="btn-mns" onclick="increase()">
+								<img src="img/plus.png" alt="plus" />
+							</button>
+						</div>
+
+						<p id="temp">20ºC</p>
+					</div>
+					<div class="card">
+						<div class="card-ident">
+							<i class="material-icons">
+								<img
+									src="img/sprinkler-variant.png"
+									alt="sprinkler"
+								/>
+							</i>
+							<h3 class="card-title">Rega</h3>
+						</div>
+						<div class="active-regas">
+							<p class="card-text">Varanda</p>
+						</div>
+					</div>
+					<div class="card" id="security-alert">
+						<div class="card-ident">
+							<i class="material-icons">
+								<img src="img/shield-lock.png" alt="shield" />
+							</i>
+							<h3 class="card-title">Segurança</h3>
+						</div>
+						<p class="card-text" id="security-alert-text">
+							Sem ameaças.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="main.js"></script>
+</html>
