@@ -36,9 +36,10 @@ function timeSet() {
 function increase() {
 	var element = document.querySelector("#temp");
 	var temp = element.textContent;
-	var temp1 = parseInt(temp[0] + temp[1]);
+	var temp1 =parseInt(temp[0] + temp[1]);
 	temp1++;
 	element.textContent = temp1 + "ºC";
+	
 }
 
 function decrease() {
@@ -71,3 +72,5 @@ function executeAllert() {
 		}, 3000);
 	}, 9000);
 }
+
+
