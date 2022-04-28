@@ -98,6 +98,22 @@ body {
 	flex-direction: column;
 }
 
+#cozinha {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+#buttons_cozinha {
+	padding-left: 15px;
+}
+
+#displayTemp_cozinha {
+	margin: 60px 0 0 30px;
+	position: relative;
+	right: 10px;
+}
+
 .card-ident {
 	/* align items horizontally */
 	display: flex;
