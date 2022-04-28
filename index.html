@@ -42,16 +42,17 @@
 				<!-- list of blocks -->
 				<div class="blocks-div">
 					<div class="card" id="cozinha">
+					<div style="margin: 0;">
 						<div class="card-ident">
 							<i class="material-icons">
-								<img
-									src="img/thermometer.png"
-									alt="thermometer"
-								/>
+								<img src="img/thermometer.png" alt="thermometer" />
 							</i>
 							<h3 class="card-title">Cozinha</h3>
 						</div>
-						<div class="buttons">
+
+						<div class="buttons" id="buttons_cozinha">
+							<h3>Definir</h3>
+							<p id="temp" style="margin-left: 5px">20ºC</p>
 							<button class="btn-pls" onclick="decrease()">
 								<img src="img/minus.png" alt="minus" />
 							</button>
@@ -59,8 +60,15 @@
 								<img src="img/plus.png" alt="plus" />
 							</button>
 						</div>
-						<p id="temp">20ºC</p>
 					</div>
+					<div id="displayTemp_cozinha">
+						<h3>Temperatura</h3>
+						<p id="current_temp" style="font-size: 30px; margin-left: 20px;">
+							<span id="temp_cozinha">20ºC</span>
+						</p>
+					</div>
+
+				</div>
 					<div class="card">
 						<div class="card-ident">
 							<i class="material-icons">
