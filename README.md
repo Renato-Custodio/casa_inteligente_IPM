@@ -1,2 +1,3 @@
 # casa-inteligente-ipm
-yes
+Uma casa muito pouco inteligente
+
