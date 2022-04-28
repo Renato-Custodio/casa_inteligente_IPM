@@ -1,4 +1,11 @@
-window.onload = randomTemp();
+window.onload = () => {
+	const temp = randomTemp();
+	var element = document.querySelector("#temp");
+	element.textContent = temp + "ºC";
+
+	element = document.querySelector("#temp_cozinha");
+	element.textContent = temp + "ºC";
+}
 window.onload = executeAllert();
 
 document.querySelector("#btn-set").addEventListener("click", timeSet);
@@ -73,4 +80,8 @@ function executeAllert() {
 	}, 9000);
 }
 
-
+function randomTemp() {
+	//generate a random temperature
+	var temp = Math.floor(Math.random() * 10) + 18;
+	return temp;
+}
