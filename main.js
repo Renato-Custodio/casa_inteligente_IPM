@@ -56,16 +56,6 @@ function randomTemp() {
 	element.textContent = temp + "ºC";
 }
 
-function openNav() {
-	document.getElementById("mySidenav").style.width = "250px";
-	document.getElementById("cont").style.marginLeft = "250px";
-}
-
-function closeNav() {
-	document.getElementById("mySidenav").style.width = "0";
-	document.getElementById("cont").style.marginLeft = "0";
-}
-
 function executeAllert() {
 	setInterval(function () {
 		element = document.querySelector("#security-alert");
