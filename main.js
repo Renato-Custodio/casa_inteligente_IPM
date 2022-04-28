@@ -1,4 +1,11 @@
-window.onload = randomTemp();
+window.onload = () => {
+	const temp = randomTemp();
+	var element = document.querySelector("#temp");
+	element.textContent = temp + "ºC";
+
+	element = document.querySelector("#temp_cozinha");
+	element.textContent = temp + "ºC";
+}
 window.onload = executeAllert();
 
 document.querySelector("#btn-set").addEventListener("click", timeSet);
@@ -33,6 +40,25 @@ function timeSet() {
 	}
 }
 
+function executeAllert() {
+	setInterval(function () {
+		element = document.querySelector("#security-alert");
+		elementText = document.getElementById("security-alert-text");
+		original_color = element.style.backgroundColor;
+		element.style.backgroundColor = "red";
+		elementText.innerHTML = "AMEAÇA!";
+
+		//return to original state
+		setTimeout(function () {
+			element.style.backgroundColor = original_color;
+			elementText.innerHTML = "Sem ameaças";
+		}, 3000);
+	}, 9000);
+}
+
+
+// Cozinha
+
 function increase() {
 	var element = document.querySelector("#temp");
 	var temp = element.textContent;
@@ -52,22 +78,5 @@ function decrease() {
 function randomTemp() {
 	//generate a random temperature
 	var temp = Math.floor(Math.random() * 10) + 18;
-	var element = document.querySelector("#temp");
-	element.textContent = temp + "ºC";
-}
-
-function executeAllert() {
-	setInterval(function () {
-		element = document.querySelector("#security-alert");
-		elementText = document.getElementById("security-alert-text");
-		original_color = element.style.backgroundColor;
-		element.style.backgroundColor = "red";
-		elementText.innerHTML = "AMEAÇA!";
-
-		//return to original state
-		setTimeout(function () {
-			element.style.backgroundColor = original_color;
-			elementText.innerHTML = "Sem ameaças";
-		}, 3000);
-	}, 9000);
+	return temp;
 }
