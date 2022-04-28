@@ -4,21 +4,20 @@ var tempSet = temp;
 localStorage.setItem("temp", JSON.stringify(temp));
 localStorage.setItem("tempSet", JSON.stringify(tempSet));
 
-//while (temp != tempSet) {}
-
 window.onload = () => {
 	checked = JSON.parse(localStorage.getItem("checkedSecurity"));
 
 	if (window.location.href.match("index.html") != null) {
 		if (checked) {
+			console.log(checked);
 			setTemp();
-			executeAllert(chooseThreat());
+			let threat = chooseThreat();
+			executeAllert(threat);
 		}
 	} else if (window.location.href.match("seguranca.html") != null) {
 		document.getElementById("c1").checked = checked;
 	}
 };
-
 if (window.location.href.match("rega.html") != null) {
 	// document.querySelector("#btn-set").addEventListener("click", timeSet);
 }
@@ -135,8 +134,6 @@ Eplay.addEventListener("click", () => {
 var divisoes = ["cozinha", "sala", "varanda", "quarto", "casa de banho"];
 function chooseThreat() {
 	var threat =
-		"Intruso no/a " +
-		divisoes[Math.floor(Math.random() * divisoes.length)] +
-		".";
+		"Intruso no/a " + divisoes[Math.floor(Math.random() * 10)] + ".";
 	return threat;
 }
