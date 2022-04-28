@@ -61,7 +61,13 @@ function executeAllert() {
 		element = document.querySelector("#security-alert");
 		elementText = document.getElementById("security-alert-text");
 		original_color = element.style.backgroundColor;
-		element.style.backgroundColor = "red";  
+		element.style.backgroundColor = "red";
 		elementText.innerHTML = "AMEAÇA!";
-	}, 6000);
+
+		//return to original state
+		setTimeout(function () {
+			element.style.backgroundColor = original_color;
+			elementText.innerHTML = "Sem ameaças";
+		}, 3000);
+	}, 9000);
 }

@@ -93,7 +93,7 @@ body {
 	background-color: rgb(58, 58, 58);
 	margin: 15px;
 	width: 400px;
-	height: 200px;
+    height: 200px;
 }
 
 .card {
@@ -107,6 +107,7 @@ body {
 	display: flex;
 	flex-direction: row;
 }
+
 
 .btn-pls {
 	/* round feft corners */
@@ -131,22 +132,22 @@ body {
 }
 
 #btn-set {
-	/* round left corners */
+    /* round left corners */
 	border-top-left-radius: 20px;
 	border-bottom-left-radius: 20px;
 	background-color: rgb(58, 58, 58);
-	/* round right corners */
+    /* round right corners */
 	border-top-right-radius: 20px;
 	border-bottom-right-radius: 20px;
 	background-color: rgb(58, 58, 58);
-	/* color: white; */
-	margin: 10px 0px 0px 0px;
-	color: white;
+    /* color: white; */
+    margin: 10px 0px 0px 0px;
+    color: white;
 	width: 40px;
 	height: 30px;
 	text-align: center;
 }
 
 .time {
-	background-color: red;
+    background-color: red;
 }
