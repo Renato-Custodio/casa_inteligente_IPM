@@ -1,18 +1,27 @@
-var checked = true; //Security
+var checked = false; //Security
+var temp = randomTemp();
+var tempSet = temp;
+localStorage.setItem("temp", JSON.stringify(temp));
+localStorage.setItem("tempSet", JSON.stringify(tempSet));
+
+//while (temp != tempSet) {}
 
 window.onload = () => {
-	// setTemp();
 	checked = JSON.parse(localStorage.getItem("checkedSecurity"));
-	console.log("loaded");
-	//TODO get
-};
-window.onload = executeAllert();
 
-window.BeforeUnloadEvent = () => {
-	localStorage.setItem("checkedSecurity", checked);
+	if (window.location.href.match("index.html") != null) {
+		if (checked) {
+			setTemp();
+			executeAllert(chooseThreat());
+		}
+	} else if (window.location.href.match("seguranca.html") != null) {
+		document.getElementById("c1").checked = checked;
+	}
 };
 
-document.querySelector("#btn-set").addEventListener("click", timeSet);
+if (window.location.href.match("rega.html") != null) {
+	// document.querySelector("#btn-set").addEventListener("click", timeSet);
+}
 
 function timeSet() {
 	let pick1 = document.getElementById("time1");
@@ -44,6 +53,21 @@ function timeSet() {
 	}
 }
 
+function setTemp() {
+	const temp = randomTemp();
+	var element = document.querySelector("#temp");
+	element.textContent = temp + "ºC";
+
+	element = document.querySelector("#temp_cozinha");
+	element.textContent = temp + "ºC";
+}
+
+function randomTemp() {
+	//generate a random temperature
+	var temp = Math.floor(Math.random() * 10) + 18;
+	return temp;
+}
+
 function increase() {
 	var element = document.querySelector("#temp");
 	var temp = element.textContent;
@@ -62,22 +86,22 @@ function decrease() {
 
 function randomTemp() {
 	//generate a random temperature
-	var temp = Math.floor(Math.random() * 10) + 18;
-	var element = document.querySelector("#temp");
-	element.textContent = temp + "ºC";
+	return Math.floor(Math.random() * 10) + 18;
 }
 
-function executeAllert() {
+function executeAllert(threat) {
+	element = document.querySelector("#security-alert");
+	elNav = document.querySelector(".navbar-ul");
+	elementText = document.getElementById("security-alert-text");
+	original_color = element.style.backgroundColor;
+
 	function allert(active) {
-		element = document.querySelector("#security-alert");
-		elementText = document.getElementById("security-alert-text");
-		original_color = element.style.backgroundColor;
 		if (active) {
 			element.style.backgroundColor = "red";
 			elementText.innerHTML = "AMEAÇA!";
 		} else {
 			element.style.backgroundColor = original_color;
-			elementText.innerHTML = "Sem ameaças";
+			elementText.innerHTML = "Sem ameaças.";
 		}
 	}
 
@@ -89,26 +113,30 @@ function executeAllert() {
 	}, 9000);
 }
 
-function setTemp() {
-	const temp = randomTemp();
-	var element = document.querySelector("#temp");
-	element.textContent = temp + "ºC";
-
-	element = document.querySelector("#temp_cozinha");
-	element.textContent = temp + "ºC";
-}
-
-function randomTemp() {
-	//generate a random temperature
-	var temp = Math.floor(Math.random() * 10) + 18;
-	return temp;
-}
-
 // Security
+
+document.addEventListener("click", value);
 
 function value() {
 	var check = document.querySelector("#c1");
-	console.log(check.checked);
+	checked = check.checked;
+	localStorage.setItem("checkedSecurity", JSON.stringify(checked));
 }
 
-value();
+const Evideo = document.querySelector("#video");
+const Eplay = document.querySelector("#play");
+
+Eplay.addEventListener("click", () => {
+	const isPaused = Evideo.paused;
+	Evideo[isPaused ? "play" : "pause"]();
+	Evideo.classList.toggle("u-none", !isPaused);
+});
+
+var divisoes = ["cozinha", "sala", "varanda", "quarto", "casa de banho"];
+function chooseThreat() {
+	var threat =
+		"Intruso no/a " +
+		divisoes[Math.floor(Math.random() * divisoes.length)] +
+		".";
+	return threat;
+}

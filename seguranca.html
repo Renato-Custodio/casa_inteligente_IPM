@@ -46,23 +46,26 @@
                     <div class="switch">
                         <input type="checkbox" id="c1">
                         <label for="c1"><span></span></label>
+                        <div class="cam">
+                            <button class="camBtn" id="play">Câmaras</button>
+                        </div> 
                     </div>
                 </div>
             </div>
-            <div class="blocks-div" id="secondContainer">
-                <div class="card">
-                    <div class="card-ident">
-                        <h3 class="card-title">Câmaras de Segurança</h3>
-                    </div>
-                    <div class="cam">
-                        <button class="camBtn">Ver</button>
-                    </div>    
-                </div>
+
+            <video id="video" class="u-none" controls>
+                <!-- <source src='http://vjs.zencdn.net/v/oceans.mp4' type='video/mp4'> -->
+                <source src='img/vid.mp4' type='video/mp4'>
+            </video>
+
+            <div class="camMenu">
+                <button id="prev">Prev</button> 
+                Traseiras
+                <button id="next">Next</button> 
             </div>
-            
 
         </div>
-        <script src="security.js"></script>
+        <script src="main.js"></script>
 </body>
 
 </html>
