@@ -1,12 +1,16 @@
-window.onload = () => {
-	const temp = randomTemp();
-	var element = document.querySelector("#temp");
-	element.textContent = temp + "ºC";
+var checked = true; //Security
 
-	element = document.querySelector("#temp_cozinha");
-	element.textContent = temp + "ºC";
-}
+window.onload = () => {
+	// setTemp();
+	checked = JSON.parse(localStorage.getItem("checkedSecurity"));
+	console.log("loaded");
+	//TODO get
+};
 window.onload = executeAllert();
+
+window.BeforeUnloadEvent = () => {
+	localStorage.setItem("checkedSecurity", checked);
+};
 
 document.querySelector("#btn-set").addEventListener("click", timeSet);
 
@@ -43,10 +47,9 @@ function timeSet() {
 function increase() {
 	var element = document.querySelector("#temp");
 	var temp = element.textContent;
-	var temp1 =parseInt(temp[0] + temp[1]);
+	var temp1 = parseInt(temp[0] + temp[1]);
 	temp1++;
 	element.textContent = temp1 + "ºC";
-	
 }
 
 function decrease() {
@@ -65,19 +68,34 @@ function randomTemp() {
 }
 
 function executeAllert() {
-	setInterval(function () {
+	function allert(active) {
 		element = document.querySelector("#security-alert");
 		elementText = document.getElementById("security-alert-text");
 		original_color = element.style.backgroundColor;
-		element.style.backgroundColor = "red";
-		elementText.innerHTML = "AMEAÇA!";
-
-		//return to original state
-		setTimeout(function () {
+		if (active) {
+			element.style.backgroundColor = "red";
+			elementText.innerHTML = "AMEAÇA!";
+		} else {
 			element.style.backgroundColor = original_color;
 			elementText.innerHTML = "Sem ameaças";
+		}
+	}
+
+	setInterval(function () {
+		allert(true);
+		setTimeout(function () {
+			allert(false);
 		}, 3000);
 	}, 9000);
+}
+
+function setTemp() {
+	const temp = randomTemp();
+	var element = document.querySelector("#temp");
+	element.textContent = temp + "ºC";
+
+	element = document.querySelector("#temp_cozinha");
+	element.textContent = temp + "ºC";
 }
 
 function randomTemp() {
@@ -85,3 +103,12 @@ function randomTemp() {
 	var temp = Math.floor(Math.random() * 10) + 18;
 	return temp;
 }
+
+// Security
+
+function value() {
+	var check = document.querySelector("#c1");
+	console.log(check.checked);
+}
+
+value();
