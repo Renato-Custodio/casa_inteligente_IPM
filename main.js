@@ -1,17 +1,18 @@
+var divisoes = ["cozinha", "sala", "varanda", "quarto", "casa de banho"];
 var checked = false; //Security
+
 var temp = randomTemp();
-var tempSet = temp;
-localStorage.setItem("temp", JSON.stringify(temp));
-localStorage.setItem("tempSet", JSON.stringify(tempSet));
+var tempSet = temp; //estas cenas da tem eu ja ponho a funcionar bem (correia)
 
 window.onload = () => {
 	checked = JSON.parse(localStorage.getItem("checkedSecurity"));
 
 	if (window.location.href.match("index.html") != null) {
+		setTemp();
 		if (checked) {
 			console.log(checked);
-			setTemp();
-			let threat = chooseThreat();
+
+			var threat = chooseThreat();
 			executeAllert(threat);
 		}
 	} else if (window.location.href.match("seguranca.html") != null) {
@@ -53,12 +54,14 @@ function timeSet() {
 }
 
 function setTemp() {
-	const temp = randomTemp();
 	var element = document.querySelector("#temp");
 	element.textContent = temp + "ºC";
 
 	element = document.querySelector("#temp_cozinha");
-	element.textContent = temp + "ºC";
+	element.textContent = tempSet + "ºC";
+
+	localStorage.setItem("temp", JSON.stringify(temp));
+	localStorage.setItem("tempSet", JSON.stringify(tempSet));
 }
 
 function randomTemp() {
@@ -67,20 +70,26 @@ function randomTemp() {
 	return temp;
 }
 
+function ajustTemp() {
+	//slowly in a intervall of a minute change temp to tempSet
+}
+
 function increase() {
-	var element = document.querySelector("#temp");
-	var temp = element.textContent;
-	var temp1 = parseInt(temp[0] + temp[1]);
-	temp1++;
-	element.textContent = temp1 + "ºC";
+	// var element = document.querySelector("#temp");
+	// var temp = element.textContent;
+	// var temp1 = parseInt(temp[0] + temp[1]);
+	tempSet++;
+	element.textContent = tempSet + "ºC";
+	console.log(tempSet + "ºC");
 }
 
 function decrease() {
-	var element = document.querySelector("#temp");
-	var temp = element.textContent;
-	var temp1 = parseInt(temp[0] + temp[1]);
-	temp1--;
-	element.textContent = temp1 + "ºC";
+	// var element = document.querySelector("#temp");
+	// var temp = element.textContent;
+	// var temp1 = parseInt(temp[0] + temp[1]);
+	tempSet--;
+	element.textContent = tempSet + "ºC";
+	console.log(tempSet + "ºC");
 }
 
 function randomTemp() {
@@ -91,7 +100,7 @@ function randomTemp() {
 function executeAllert(threat) {
 	element = document.querySelector("#security-alert");
 	elNav = document.querySelector(".navbar-ul");
-	elementText = document.getElementById("security-alert-text");
+	elementText = document.getElementById("security-alert ul");
 	original_color = element.style.backgroundColor;
 
 	function allert(active) {
@@ -100,7 +109,8 @@ function executeAllert(threat) {
 			elementText.innerHTML = "AMEAÇA!";
 		} else {
 			element.style.backgroundColor = original_color;
-			elementText.innerHTML = "Sem ameaças.";
+			//todo
+			elementText.appendChild();
 		}
 	}
 
@@ -122,18 +132,19 @@ function value() {
 	localStorage.setItem("checkedSecurity", JSON.stringify(checked));
 }
 
-const Evideo = document.querySelector("#video");
-const Eplay = document.querySelector("#play");
+var Evideo = document.querySelector("#video");
+var Eplay = document.querySelector("#play");
 
-Eplay.addEventListener("click", () => {
-	const isPaused = Evideo.paused;
-	Evideo[isPaused ? "play" : "pause"]();
-	Evideo.classList.toggle("u-none", !isPaused);
-});
+// Eplay.addEventListener("click", () => {
+// 	const isPaused = Evideo.paused;
+// 	Evideo[isPaused ? "play" : "pause"]();
+// 	Evideo.classList.toggle("u-none", !isPaused);
+// });
 
-var divisoes = ["cozinha", "sala", "varanda", "quarto", "casa de banho"];
 function chooseThreat() {
 	var threat =
-		"Intruso no/a " + divisoes[Math.floor(Math.random() * 10)] + ".";
+		"Intruso no/a " +
+		divisoes[Math.floor(Math.random() * 100) % divisoes.length] +
+		".";
 	return threat;
 }
