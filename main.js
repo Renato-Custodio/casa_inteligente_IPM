@@ -1,14 +1,10 @@
 var divisoes = ["cozinha", "sala", "varanda", "quarto", "casa de banho"];
 var checked = false; //Security
 
-var temp = randomTemp();
-var tempSet = temp; //estas cenas da tem eu ja ponho a funcionar bem (correia)
-
 window.onload = () => {
 	checked = JSON.parse(localStorage.getItem("checkedSecurity"));
-
+	setTemp();
 	if (window.location.href.match("index.html") != null) {
-		setTemp();
 		if (checked) {
 			console.log(checked);
 
@@ -54,6 +50,8 @@ function timeSet() {
 }
 
 function setTemp() {
+	var temp = randomTemp();
+	var tempSet = temp;
 	var element = document.querySelector("#temp");
 	element.textContent = temp + "ºC";
 
@@ -71,25 +69,22 @@ function randomTemp() {
 }
 
 function ajustTemp() {
-	//slowly in a intervall of a minute change temp to tempSet
 }
 
 function increase() {
-	// var element = document.querySelector("#temp");
-	// var temp = element.textContent;
-	// var temp1 = parseInt(temp[0] + temp[1]);
+	var element = document.querySelector("#temp");
+	tempSet = JSON.parse(localStorage.getItem("tempSet"));
 	tempSet++;
 	element.textContent = tempSet + "ºC";
-	console.log(tempSet + "ºC");
+	localStorage.setItem("tempSet", JSON.stringify(tempSet));
 }
 
 function decrease() {
-	// var element = document.querySelector("#temp");
-	// var temp = element.textContent;
-	// var temp1 = parseInt(temp[0] + temp[1]);
+	var element = document.querySelector("#temp");
+	tempSet = JSON.parse(localStorage.getItem("tempSet"));
 	tempSet--;
 	element.textContent = tempSet + "ºC";
-	console.log(tempSet + "ºC");
+	localStorage.setItem("tempSet", JSON.stringify(tempSet));
 }
 
 function randomTemp() {
@@ -128,7 +123,7 @@ document.addEventListener("click", value);
 
 function value() {
 	var check = document.querySelector("#c1");
-	checked = check.checked;
+	//checked = check.checked;
 	localStorage.setItem("checkedSecurity", JSON.stringify(checked));
 }
 
