@@ -155,7 +155,7 @@ function executeAllert() {
 			var li = document.createElement("li");
 			li.appendChild(txt);
 			var id = generateId();
-			li.innerHTML += '<button id="'+id+'" onclick=removeItemList("'+id+'") type="button">X</button>';
+			li.innerHTML += '<button class="segura" id="'+id+'" onclick=removeItemList("'+id+'") type="button">X</button>';
 			//todo
 			list = document.querySelector("#security-alert ul").getElementsByTagName("li");
 			if(list != null && list[0].innerText=="Sem ameaças."){

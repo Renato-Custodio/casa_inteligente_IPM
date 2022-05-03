@@ -148,6 +148,14 @@ body {
 
 /*security*/
 
+.segura {
+	float: right;
+	height: 15px;
+	padding-top: 0px;
+	text-align: center;
+}
+
+
 #reset,#status {
 	display: inline-block;
 	margin: 0px;
