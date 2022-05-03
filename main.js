@@ -1,28 +1,37 @@
-var divisoes = ["cozinha", "sala", "varanda", "quarto", "casa de banho"];
+var divisoes = ["cozinha", "sala", "varanda", "quarto"];
 var checked = false; //Security
-
-var temp = randomTemp();
-var tempSet = temp; //estas cenas da tem eu ja ponho a funcionar bem (correia)
+var temp;
+var tempSet;
+var threat=null;
+var list;
+var num = 0; 
+//estas cenas da tem eu ja ponho a funcionar bem (correia)
 
 window.onload = () => {
 	checked = JSON.parse(localStorage.getItem("checkedSecurity"));
 
 	if (window.location.href.match("index.html") != null) {
+		if(!(JSON.parse(localStorage.getItem("list")) == null)){
+			document.querySelector("#security-alert ul").innerHTML = JSON.parse(localStorage.getItem("list"));
+		}
+		
+		statusSec(checked);
+		temp = randomTemp();
+		tempSet = temp;
 		setTemp();
 		if (checked) {
-			console.log(checked);
 
-			var threat = chooseThreat();
-			executeAllert(threat);
+			executeAllert();
 		}
 	} else if (window.location.href.match("seguranca.html") != null) {
 		document.getElementById("c1").checked = checked;
+		document.addEventListener("click", value);
+	}else if (window.location.href.match("rega.html") != null) {
+		// document.querySelector("#btn-set").addEventListener("click", timeSet);
 	}
 };
-if (window.location.href.match("rega.html") != null) {
-	// document.querySelector("#btn-set").addEventListener("click", timeSet);
-}
 
+//rega
 function timeSet() {
 	let pick1 = document.getElementById("time1");
 	let pick2 = document.getElementById("time2");
@@ -52,7 +61,7 @@ function timeSet() {
 		div.appendChild(time);
 	}
 }
-
+//cozinha
 function setTemp() {
 	var element = document.querySelector("#temp");
 	element.textContent = temp + "ºC";
@@ -75,18 +84,14 @@ function ajustTemp() {
 }
 
 function increase() {
-	// var element = document.querySelector("#temp");
-	// var temp = element.textContent;
-	// var temp1 = parseInt(temp[0] + temp[1]);
+	var element = document.querySelector("#temp");
 	tempSet++;
 	element.textContent = tempSet + "ºC";
 	console.log(tempSet + "ºC");
 }
 
 function decrease() {
-	// var element = document.querySelector("#temp");
-	// var temp = element.textContent;
-	// var temp1 = parseInt(temp[0] + temp[1]);
+	var element = document.querySelector("#temp");
 	tempSet--;
 	element.textContent = tempSet + "ºC";
 	console.log(tempSet + "ºC");
@@ -97,22 +102,72 @@ function randomTemp() {
 	return Math.floor(Math.random() * 10) + 18;
 }
 
-function executeAllert(threat) {
+//security
+
+function reset() {
+	var elem = document.querySelector("#security-alert ul");
+	elem.innerHTML="";
+	localStorage.removeItem("list");
+	var li = document.createElement("li");
+	li.appendChild(document.createTextNode("Sem ameaças."));
+	elem.appendChild(li);
+	localStorage.setItem("list", JSON.stringify(elem.innerHTML));
+	num = 0;
+	localStorage.setItem("num",JSON.stringify(num));
+}
+
+//index sec status
+function statusSec(check){
+	var txt;
+	if(check){
+		txt = document.createTextNode("Enabled");
+	}else{
+		txt = document.createTextNode("Disabled");
+	}
+	var status = document.querySelector("#status");
+	status.appendChild(txt);
+}
+
+function executeAllert() {
 	element = document.querySelector("#security-alert");
 	elNav = document.querySelector(".navbar-ul");
-	elementText = document.getElementById("security-alert ul");
+	
 	original_color = element.style.backgroundColor;
 
 	function allert(active) {
+		threat = chooseThreat();
+		elementText = document.querySelector("#security-alert ul");
 		if (active) {
 			element.style.backgroundColor = "red";
-			elementText.innerHTML = "AMEAÇA!";
+			//pop up
 		} else {
-			element.style.backgroundColor = original_color;
+			element.style.backgroundColor = original_color
+			//criar elementos da lista
+			//criar botao
+			/* var button = document.createElement("button");
+			button.innerHTML= "X"; */
+			num = JSON.parse(localStorage.getItem("num"));
+
+			num++;
+
+			var txt = document.createTextNode(threat);
+			//criar lista
+			var li = document.createElement("li");
+			li.appendChild(txt);
+			var id = generateId();
+			li.innerHTML += '<button id="'+id+'" onclick=removeItemList("'+id+'") type="button">X</button>';
 			//todo
-			elementText.appendChild();
+			list = document.querySelector("#security-alert ul").getElementsByTagName("li");
+			if(list != null && list[0].innerText=="Sem ameaças."){
+				document.querySelector("#security-alert ul").innerHTML="";
+			}
+			elementText.appendChild(li);
+			localStorage.setItem("list", JSON.stringify(elementText.innerHTML));
+			localStorage.setItem("num",JSON.stringify(num));
 		}
 	}
+
+	
 
 	setInterval(function () {
 		allert(true);
@@ -122,9 +177,30 @@ function executeAllert(threat) {
 	}, 9000);
 }
 
-// Security
 
-document.addEventListener("click", value);
+function removeItemList(id) {
+	document.querySelector("#security-alert ul").innerHTML = JSON.parse(localStorage.getItem("list"));
+	var ul = document.querySelector("#security-alert ul");
+	var lis = ul.getElementsByTagName("li");
+	for(var i = 0; i < lis.length; i++) {
+		var wantedId = lis[i].querySelector("[type=button]").id;
+		if(id == wantedId) {
+			lis[i].remove();
+			if(lis.length==0){
+				var li = document.createElement("li");
+				li.appendChild(document.createTextNode("Sem ameaças."));
+				ul.appendChild(li);
+			}
+			localStorage.setItem("list",JSON.stringify(ul.innerHTML));
+		}
+	}
+
+	
+} 
+
+function generateId() {
+	return "button"+JSON.parse(localStorage.getItem("num"));
+}
 
 function value() {
 	var check = document.querySelector("#c1");
@@ -142,9 +218,14 @@ var Eplay = document.querySelector("#play");
 // });
 
 function chooseThreat() {
-	var threat =
-		"Intruso no/a " +
-		divisoes[Math.floor(Math.random() * 100) % divisoes.length] +
-		".";
-	return threat;
+	var message = null;
+	do {
+
+		message = "Intruso no/a " + divisoes[Math.floor(Math.random() * 100) % divisoes.length] + ".";
+
+	}while(message === JSON.parse(localStorage.getItem("threat")));
+
+	localStorage.setItem("threat", JSON.stringify(threat));
+
+	return message;
 }
