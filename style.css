@@ -98,6 +98,13 @@ body {
 	flex-direction: column;
 }
 
+.card-ident {
+	/* align items horizontally */
+	display: flex;
+	flex-direction: row;
+}
+
+
 #cozinha {
 	display: flex;
 	flex-direction: row;
@@ -105,19 +112,13 @@ body {
 }
 
 #buttons_cozinha {
-	padding-left: 15px;
+	/* padding-left: 15px; */
 }
 
 #displayTemp_cozinha {
 	margin: 60px 0 0 30px;
 	position: relative;
-	right: 10px;
-}
-
-.card-ident {
-	/* align items horizontally */
-	display: flex;
-	flex-direction: row;
+	right: 1px;
 }
 
 .btn-pls {
