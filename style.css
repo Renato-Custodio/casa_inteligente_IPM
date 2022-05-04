@@ -98,6 +98,16 @@ body {
 	flex-direction: column;
 }
 
+.card-ident {
+	/* align items horizontally */
+	display: flex;
+	flex-direction: row;
+}
+
+.card-body{
+	/* align items horizontally */
+}
+
 #cozinha {
 	display: flex;
 	flex-direction: row;
@@ -114,11 +124,6 @@ body {
 	right: 10px;
 }
 
-.card-ident {
-	/* align items horizontally */
-	display: flex;
-	flex-direction: row;
-}
 
 .btn-pls {
 	/* round feft corners */
