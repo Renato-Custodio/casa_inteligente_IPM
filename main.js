@@ -1,11 +1,15 @@
 var divisoes = ["cozinha", "sala", "varanda", "quarto"];
-var checked = false; //Security
+
+var checked = false;
 
 var temp;
 var tempSet;
 var threat=null;
 var list;
 var num = 0; 
+var regas; // lista de regas
+var localRega;
+//estas cenas da tem eu ja ponho a funcionar bem (correia)
 
 
 window.onload = () => {
@@ -30,18 +34,24 @@ window.onload = () => {
 		document.getElementById("c1").checked = checked;
 		document.addEventListener("click", value);
 	}else if (window.location.href.match("rega.html") != null) {
-		// document.querySelector("#btn-set").addEventListener("click", timeSet);
+		localRega = JSON.parse(localStorage.getItem("localRega"));
+		if(localRega == "Varanda") {
+			document.querySelector("#listaRegas").innerHTML = JSON.parse(localStorage.getItem("timeVaranda"));
+		}
 	}
 };
 
+
+
+
 //rega
-function timeSet() {
+
+
+
+function timeSet(bool) {
 	let pick1 = document.getElementById("time1");
 	let pick2 = document.getElementById("time2");
-
 	if (!pick1.value || !pick2.value) {
-		let date1 = pick1.valueasDate;
-		let date2 = pick2.valueasDate;
 
 		if (pick1 <= pick2) {
 			let div = document.getElementById("time-interval-picker");
@@ -50,22 +60,57 @@ function timeSet() {
 			error.innerHTML = "Please select a valid time interval";
 			div.appendChild(error);
 			div.style.color = "red";
+
+			setTimeout(function () {	
+				document.getElementById("error").remove();
+			}, 2000);
+
 		}
 	} else {
-		if (document.getElementById("error")) {
-			document.getElementById("error").remove();
-		}
-
 		let time = document.createElement("span");
 		time.innerHTML = "Time interval set";
-
+		time.id = "time";
 		let div = document.getElementById("time-interval-picker");
 		div.style.color = "white";
 		div.appendChild(time);
+
+
+		setTimeout(function () {	
+			document.getElementById("time").remove();
+		}, 2000);
+
+		//real shit
+
+		console.log(pick1.value);
+		console.log(pick2.value);
+
+		var li = document.createElement("li");
+		li.appendChild(document.createTextNode("Das "+pick1.value+" às "+pick2.value));
+		regas = document.querySelector("#listaRegas");
+		var regasLi = document.querySelector("#listaRegas").getElementsByTagName("li");
+		var divisao = document.querySelector("#divisoes").value;
+		
+		if(regasLi.length == 1 && regasLi[0].innerText == "Nada Agendado.") {
+			console.log(regasLi[0].innerText == "Nada Agendado.");
+			regasLi[0].remove();
+		}
+
+		if(divisao == "Varanda") {
+			console.log(document.querySelector("#listaRegas"));
+			
+			regas.appendChild(li);
+			localStorage.setItem("timeVaranda", JSON.stringify());
+		}
+		
+		localStorage.setItem("timeVaranda", JSON.stringify(regas.innerHTML));
+		
 	}
+
 }
 
 
+
+//cozinha
 function loadTemps() {
 	//only if temps not in local storage create news and save ttemps in local storage
 	if (localStorage.getItem("temp") == null) {
@@ -83,7 +128,6 @@ function loadTemps() {
 
 function updateTemp() {
 	var element = document.querySelector("#temp_cozinha");
-
 	element.textContent = temp + "ºC";
 
 	element = document.querySelector("#temp");
@@ -155,37 +199,34 @@ function executeAllert() {
 	function allert(active) {
 		threat = chooseThreat();
 		elementText = document.querySelector("#security-alert ul");
+
 		if (active) {
-			element.style.backgroundColor = "red";
 			//pop up
+			var label = document.createElement("label");
+			label.appendChild(document.createTextNode("Alerta Intruso"));
+			label.id = "popUp";
+			document.querySelector("#top").appendChild(label);
+
 		} else {
-			element.style.backgroundColor = original_color
-			//criar elementos da lista
-			//criar botao
-			/* var button = document.createElement("button");
-			button.innerHTML= "X"; */
 			num = JSON.parse(localStorage.getItem("num"));
-
 			num++;
-
-			var txt = document.createTextNode(threat);
 			//criar lista
 			var li = document.createElement("li");
+			//set up list
+			var txt = document.createTextNode(threat);
 			li.appendChild(txt);
 			var id = generateId();
 			li.innerHTML += '<button class="segura" id="'+id+'" onclick=removeItemList("'+id+'") type="button">X</button>';
-			//todo
 			list = document.querySelector("#security-alert ul").getElementsByTagName("li");
 			if(list != null && list[0].innerText=="Sem ameaças."){
-				document.querySelector("#security-alert ul").innerHTML="";
+				elementText.innerHTML="";
 			}
 			elementText.appendChild(li);
 			localStorage.setItem("list", JSON.stringify(elementText.innerHTML));
 			localStorage.setItem("num",JSON.stringify(num));
+			document.querySelector("#top label").remove();
 		}
 	}
-
-	
 
 	setInterval(function () {
 		allert(true);
