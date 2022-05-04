@@ -137,33 +137,32 @@ function executeAllert() {
 	function allert(active) {
 		threat = chooseThreat();
 		elementText = document.querySelector("#security-alert ul");
+
 		if (active) {
-			element.style.backgroundColor = "red";
 			//pop up
+			var label = document.createElement("label");
+			label.appendChild(document.createTextNode("Alerta Intruso"));
+			label.id = "popUp";
+			document.querySelector("#top").appendChild(label);
+
 		} else {
-			element.style.backgroundColor = original_color
-			//criar elementos da lista
-			//criar botao
-			/* var button = document.createElement("button");
-			button.innerHTML= "X"; */
 			num = JSON.parse(localStorage.getItem("num"));
-
 			num++;
-
-			var txt = document.createTextNode(threat);
 			//criar lista
 			var li = document.createElement("li");
+			//set up list
+			var txt = document.createTextNode(threat);
 			li.appendChild(txt);
 			var id = generateId();
 			li.innerHTML += '<button class="segura" id="'+id+'" onclick=removeItemList("'+id+'") type="button">X</button>';
-			//todo
 			list = document.querySelector("#security-alert ul").getElementsByTagName("li");
 			if(list != null && list[0].innerText=="Sem ameaças."){
-				document.querySelector("#security-alert ul").innerHTML="";
+				elementText.innerHTML="";
 			}
 			elementText.appendChild(li);
 			localStorage.setItem("list", JSON.stringify(elementText.innerHTML));
 			localStorage.setItem("num",JSON.stringify(num));
+			document.querySelector("#top label").remove();
 		}
 	}
 

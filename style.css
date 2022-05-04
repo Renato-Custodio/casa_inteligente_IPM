@@ -148,6 +148,24 @@ body {
 
 /*security*/
 
+#popUp {
+	/* margin-left: 400px; */
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	text-align: center;
+	background-color: red;
+	width: 200px;
+	border-radius: 10px;
+}
+
+/* #top {
+	display: flex;
+} */
+
+
 .segura {
 	float: right;
 	height: 15px;
