@@ -55,7 +55,7 @@
 
 							<div class="buttons" id="buttons_cozinha">
 								<h4>Termostato</h4>
-								<p id="temp" style="text-align:center">--ºC</p>
+								<p id="temp" style="text-align: center">--ºC</p>
 								<button class="btn-pls" onclick="decrease()">
 									<img src="img/minus.png" alt="minus" />
 								</button>
@@ -65,12 +65,13 @@
 							</div>
 						</div>
 						<div id="displayTemp_cozinha">
-							<h4 >Temperatura</h4>
-							<p
-								id="current_temp"
-								style="font-size: 30px;"
-							>
-								<span id="temp_cozinha" style="text-align:center">--ºC</span>
+							<h4>Temperatura</h4>
+							<p id="current_temp" style="font-size: 30px">
+								<span
+									id="temp_cozinha"
+									style="text-align: center"
+									>--ºC</span
+								>
 							</p>
 						</div>
 					</div>
@@ -95,9 +96,11 @@
 							</i>
 							<h3 class="card-title">Segurança</h3>
 						</div>
-							<div>
+						<div>
 							<p id="status"></p>
-							<button id="reset" onclick=reset() type="button">Clear</button>
+							<button id="reset" class="camBtn" onclick="reset()" type="button">
+								Clear
+							</button>
 						</div>
 						<ul class="card-text" id="security-alert-text">
 							<li>Sem ameaças.</li>

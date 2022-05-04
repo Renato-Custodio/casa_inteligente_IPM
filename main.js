@@ -4,55 +4,49 @@ var checked = false;
 
 var temp;
 var tempSet;
-var threat=null;
+var threat = null;
 var list;
-var num = 0; 
+var num = 0;
 var regas; // lista de regas
 var localRega;
-//estas cenas da tem eu ja ponho a funcionar bem (correia)
-
 
 window.onload = () => {
 	checked = JSON.parse(localStorage.getItem("checkedSecurity"));
 
-	loadTemps();
 	setInterval(ajustTemp, 2000);
 
 	if (window.location.href.match("index.html") != null) {
-
-		if(!(JSON.parse(localStorage.getItem("list")) == null)){
-			document.querySelector("#security-alert ul").innerHTML = JSON.parse(localStorage.getItem("list"));
+		if (!(JSON.parse(localStorage.getItem("list")) == null)) {
+			document.querySelector("#security-alert ul").innerHTML = JSON.parse(
+				localStorage.getItem("list")
+			);
 		}
-		
+
 		statusSec(checked);
+		loadTemps();
 
 		if (checked) {
-
 			executeAllert();
 		}
 	} else if (window.location.href.match("seguranca.html") != null) {
 		document.getElementById("c1").checked = checked;
 		document.addEventListener("click", value);
-	}else if (window.location.href.match("rega.html") != null) {
+	} else if (window.location.href.match("rega.html") != null) {
 		localRega = JSON.parse(localStorage.getItem("localRega"));
-		if(localRega == "Varanda") {
-			document.querySelector("#listaRegas").innerHTML = JSON.parse(localStorage.getItem("timeVaranda"));
+		if (localRega == "Varanda") {
+			document.querySelector("#listaRegas").innerHTML = JSON.parse(
+				localStorage.getItem("timeVaranda")
+			);
 		}
 	}
 };
 
-
-
-
 //rega
-
-
 
 function timeSet(bool) {
 	let pick1 = document.getElementById("time1");
 	let pick2 = document.getElementById("time2");
 	if (!pick1.value || !pick2.value) {
-
 		if (pick1 <= pick2) {
 			let div = document.getElementById("time-interval-picker");
 			let error = document.createElement("span");
@@ -61,10 +55,9 @@ function timeSet(bool) {
 			div.appendChild(error);
 			div.style.color = "red";
 
-			setTimeout(function () {	
+			setTimeout(function () {
 				document.getElementById("error").remove();
 			}, 2000);
-
 		}
 	} else {
 		let time = document.createElement("span");
@@ -74,8 +67,7 @@ function timeSet(bool) {
 		div.style.color = "white";
 		div.appendChild(time);
 
-
-		setTimeout(function () {	
+		setTimeout(function () {
 			document.getElementById("time").remove();
 		}, 2000);
 
@@ -85,30 +77,30 @@ function timeSet(bool) {
 		console.log(pick2.value);
 
 		var li = document.createElement("li");
-		li.appendChild(document.createTextNode("Das "+pick1.value+" às "+pick2.value));
+		li.appendChild(
+			document.createTextNode("Das " + pick1.value + " às " + pick2.value)
+		);
 		regas = document.querySelector("#listaRegas");
-		var regasLi = document.querySelector("#listaRegas").getElementsByTagName("li");
+		var regasLi = document
+			.querySelector("#listaRegas")
+			.getElementsByTagName("li");
 		var divisao = document.querySelector("#divisoes").value;
-		
-		if(regasLi.length == 1 && regasLi[0].innerText == "Nada Agendado.") {
+
+		if (regasLi.length == 1 && regasLi[0].innerText == "Nada Agendado.") {
 			console.log(regasLi[0].innerText == "Nada Agendado.");
 			regasLi[0].remove();
 		}
 
-		if(divisao == "Varanda") {
+		if (divisao == "Varanda") {
 			console.log(document.querySelector("#listaRegas"));
-			
+
 			regas.appendChild(li);
 			localStorage.setItem("timeVaranda", JSON.stringify());
 		}
-		
+
 		localStorage.setItem("timeVaranda", JSON.stringify(regas.innerHTML));
-		
 	}
-
 }
-
-
 
 //cozinha
 function loadTemps() {
@@ -130,8 +122,8 @@ function updateTemp() {
 	var element = document.querySelector("#temp_cozinha");
 	element.textContent = temp + "ºC";
 
-	element = document.querySelector("#temp");
-	element.textContent = tempSet + "ºC";
+	var element2 = document.querySelector("#temp");
+	element2.textContent = tempSet + "ºC";
 
 	localStorage.setItem("temp", JSON.stringify(temp));
 	localStorage.setItem("tempSet", JSON.stringify(tempSet));
@@ -154,36 +146,61 @@ function increase() {
 	var element = document.querySelector("#temp");
 	tempSet++;
 	element.textContent = tempSet + "ºC";
-	updateTemp();
+	if (tempSet > 30) {
+		tempSet = 30;
+		executeAllertPopUp("Temperatura máxima atingida", "orange");
+	} else {
+		updateTemp();
+	}
 }
 
 function decrease() {
 	var element = document.querySelector("#temp");
 	tempSet--;
 	element.textContent = tempSet + "ºC";
-	updateTemp();
+	if (tempSet < 18) {
+		tempSet = 18;
+		executeAllertPopUp("Temperatura mínima atingida", "orange");
+	} else {
+		updateTemp();
+	}
+}
+
+function executeAllertPopUp(allert) {
+	executeAllertPopUp(allert, "red");
+}
+
+function executeAllertPopUp(allert, color) {
+	var label = document.createElement("label");
+	label.appendChild(document.createTextNode(allert.toString()));
+	label.id = "popUp";
+	document.querySelector("#top").appendChild(label);
+	label.style.backgroundColor = color;
+	setTimeout(function () {
+		document.getElementById("popUp").remove();
+	}, 2000);
 }
 
 //security
 
 function reset() {
 	var elem = document.querySelector("#security-alert ul");
-	elem.innerHTML="";
+	elem.innerHTML = "";
 	localStorage.removeItem("list");
 	var li = document.createElement("li");
 	li.appendChild(document.createTextNode("Sem ameaças."));
 	elem.appendChild(li);
 	localStorage.setItem("list", JSON.stringify(elem.innerHTML));
 	num = 0;
-	localStorage.setItem("num",JSON.stringify(num));
+	localStorage.setItem("num", JSON.stringify(num));
 }
 
 //index sec status
-function statusSec(check){
+function statusSec(check) {
 	var txt;
-	if(check){
+	if (check) {
 		txt = document.createTextNode("Enabled");
-	}else{
+	} else {
 		txt = document.createTextNode("Disabled");
 	}
 	var status = document.querySelector("#status");
@@ -193,7 +210,7 @@ function statusSec(check){
 function executeAllert() {
 	element = document.querySelector("#security-alert");
 	elNav = document.querySelector(".navbar-ul");
-	
+
 	original_color = element.style.backgroundColor;
 
 	function allert(active) {
@@ -206,7 +223,6 @@ function executeAllert() {
 			label.appendChild(document.createTextNode("Alerta Intruso"));
 			label.id = "popUp";
 			document.querySelector("#top").appendChild(label);
-
 		} else {
 			num = JSON.parse(localStorage.getItem("num"));
 			num++;
@@ -216,14 +232,21 @@ function executeAllert() {
 			var txt = document.createTextNode(threat);
 			li.appendChild(txt);
 			var id = generateId();
-			li.innerHTML += '<button class="segura" id="'+id+'" onclick=removeItemList("'+id+'") type="button">X</button>';
-			list = document.querySelector("#security-alert ul").getElementsByTagName("li");
-			if(list != null && list[0].innerText=="Sem ameaças."){
-				elementText.innerHTML="";
+			li.innerHTML +=
+				'<button class="segura" id="' +
+				id +
+				'" onclick=removeItemList("' +
+				id +
+				'") type="button">X</button>';
+			list = document
+				.querySelector("#security-alert ul")
+				.getElementsByTagName("li");
+			if (list != null && list[0].innerText == "Sem ameaças.") {
+				elementText.innerHTML = "";
 			}
 			elementText.appendChild(li);
 			localStorage.setItem("list", JSON.stringify(elementText.innerHTML));
-			localStorage.setItem("num",JSON.stringify(num));
+			localStorage.setItem("num", JSON.stringify(num));
 			document.querySelector("#top label").remove();
 		}
 	}
@@ -233,37 +256,36 @@ function executeAllert() {
 		setTimeout(function () {
 			allert(false);
 		}, 3000);
-	}, 9000);
+	}, 20000);
 }
 
-
 function removeItemList(id) {
-	document.querySelector("#security-alert ul").innerHTML = JSON.parse(localStorage.getItem("list"));
+	document.querySelector("#security-alert ul").innerHTML = JSON.parse(
+		localStorage.getItem("list")
+	);
 	var ul = document.querySelector("#security-alert ul");
 	var lis = ul.getElementsByTagName("li");
-	for(var i = 0; i < lis.length; i++) {
+	for (var i = 0; i < lis.length; i++) {
 		var wantedId = lis[i].querySelector("[type=button]").id;
-		if(id == wantedId) {
+		if (id == wantedId) {
 			lis[i].remove();
-			if(lis.length==0){
+			if (lis.length == 0) {
 				var li = document.createElement("li");
 				li.appendChild(document.createTextNode("Sem ameaças."));
 				ul.appendChild(li);
 			}
-			localStorage.setItem("list",JSON.stringify(ul.innerHTML));
+			localStorage.setItem("list", JSON.stringify(ul.innerHTML));
 		}
 	}
-
-	
-} 
+}
 
 function generateId() {
-	return "button"+JSON.parse(localStorage.getItem("num"));
+	return "button" + JSON.parse(localStorage.getItem("num"));
 }
 
 function value() {
 	var check = document.querySelector("#c1");
-	//checked = check.checked;  //FIXME: tive que comentar isto porque estava a dar erro quando tentava aumentar a temp na cozinh (???)
+	checked = check.checked;
 	localStorage.setItem("checkedSecurity", JSON.stringify(checked));
 }
 
@@ -281,10 +303,11 @@ if (Evideo && Eplay) {
 function chooseThreat() {
 	var message = null;
 	do {
-
-		message = "Intruso no/a " + divisoes[Math.floor(Math.random() * 100) % divisoes.length] + ".";
-
-	}while(message === JSON.parse(localStorage.getItem("threat")));
+		message =
+			"Intruso no/a " +
+			divisoes[Math.floor(Math.random() * 100) % divisoes.length] +
+			".";
+	} while (message === JSON.parse(localStorage.getItem("threat")));
 
 	localStorage.setItem("threat", JSON.stringify(threat));
 
