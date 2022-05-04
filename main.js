@@ -135,11 +135,14 @@ function value() {
 var Evideo = document.querySelector("#video");
 var Eplay = document.querySelector("#play");
 
-// Eplay.addEventListener("click", () => {
-// 	const isPaused = Evideo.paused;
-// 	Evideo[isPaused ? "play" : "pause"]();
-// 	Evideo.classList.toggle("u-none", !isPaused);
-// });
+if(Evideo && Eplay){
+	Eplay.addEventListener("click", () => {
+		const isPaused = Evideo.paused;
+		Evideo[isPaused ? "play" : "pause"]();
+		Evideo.classList.toggle("u-none", !isPaused);
+	});
+}
+
 
 function chooseThreat() {
 	var threat =
