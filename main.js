@@ -22,7 +22,6 @@ window.onload = () => {
 		tempSet = temp;
 		setTemp();
 		if (checked) {
-
 			executeAllert();
 		}
 	} else if (window.location.href.match("seguranca.html") != null) {
@@ -30,8 +29,11 @@ window.onload = () => {
 		document.addEventListener("click", value);
 	}else if (window.location.href.match("rega.html") != null) {
 		localRega = JSON.parse(localStorage.getItem("localRega"));
+		document.querySelector("#divisoes").value = localRega;
 		if(localRega == "Varanda") {
 			document.querySelector("#listaRegas").innerHTML = JSON.parse(localStorage.getItem("timeVaranda"));
+		} else {
+			document.querySelector("#listaRegas").innerHTML = JSON.parse(localStorage.getItem("timeQuintal"));
 		}
 	}
 };
@@ -76,34 +78,38 @@ function timeSet(bool) {
 
 		//real shit
 
-		console.log(pick1.value);
-		console.log(pick2.value);
-
 		var li = document.createElement("li");
 		li.appendChild(document.createTextNode("Das "+pick1.value+" às "+pick2.value));
 		regas = document.querySelector("#listaRegas");
 		var regasLi = document.querySelector("#listaRegas").getElementsByTagName("li");
-		var divisao = document.querySelector("#divisoes").value;
 		
 		if(regasLi.length == 1 && regasLi[0].innerText == "Nada Agendado.") {
-			console.log(regasLi[0].innerText == "Nada Agendado.");
 			regasLi[0].remove();
 		}
 
 		if(divisao == "Varanda") {
-			console.log(document.querySelector("#listaRegas"));
-			
 			regas.appendChild(li);
-			localStorage.setItem("timeVaranda", JSON.stringify());
+			localStorage.setItem("timeVaranda", JSON.stringify(regas.innerHTML));
+		}else {
+			regas.appendChild(li);
+			localStorage.setItem("timeQuintal", JSON.stringify(regas.innerHTML));
 		}
 		
-		localStorage.setItem("timeVaranda", JSON.stringify(regas.innerHTML));
+		
 		
 	}
 
 }
 
-
+function divisao() {
+	localRega = document.querySelector("#divisoes").value;
+	localStorage.setItem("localRega",JSON.stringify(localRega));
+	if(localRega == "Varanda"){
+		document.querySelector("#listaRegas").innerHTML = JSON.parse(localStorage.getItem("timeVaranda"));
+	}else {
+		document.querySelector("#listaRegas").innerHTML = JSON.parse(localStorage.getItem("timeQuintal"));
+	}
+}
 
 //cozinha
 
