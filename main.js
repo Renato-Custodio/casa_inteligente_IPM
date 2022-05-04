@@ -7,7 +7,8 @@ var tempSet;
 window.onload = () => {
 	checked = JSON.parse(localStorage.getItem("checkedSecurity"));
 
-	updateTemps();
+	loadTemps();
+	setInterval(ajustTemp, 2000);
 
 	if (window.location.href.match("index.html") != null) {
 		if (checked) {
@@ -54,7 +55,7 @@ function timeSet() {
 	}
 }
 
-function updateTemps() {
+function loadTemps() {
 	//only if temps not in local storage create news and save ttemps in local storage
 	if (localStorage.getItem("temp") == null) {
 		temp = Math.floor(Math.random() * 10) + 18;
@@ -66,52 +67,45 @@ function updateTemps() {
 		tempSet = JSON.parse(localStorage.getItem("tempSet"));
 	}
 
-	var element = document.querySelector("#temp");
-	element.textContent = temp + "ºC";
-
-	element = document.querySelector("#temp_cozinha");
-	element.textContent = tempSet + "ºC";
+	updateTemp();
 }
 
 function updateTemp() {
 	var element = document.querySelector("#temp_cozinha");
 	element.textContent = temp + "ºC";
+
+	element = document.querySelector("#temp");
+	element.textContent = tempSet + "ºC";
+
+	localStorage.setItem("temp", JSON.stringify(temp));
+	localStorage.setItem("tempSet", JSON.stringify(tempSet));
 }
 
 function ajustTemp() {
+	//funcion that runs every second and checks if the temp is correct
 	if (temp != tempSet) {
-		setInterval(function () {
-			if (temp > tempSet) {
-				temp--;
-			} else if (temp < tempSet) {
-				temp++;
-			}
-			updateTemp();
-		}, 60000 / (tempSet - temp));
+		if (temp > tempSet) {
+			temp--;
+		}
+		if (temp < tempSet) {
+			temp++;
+		}
+		updateTemp();
 	}
 }
 
 function increase() {
 	var element = document.querySelector("#temp");
-	// var temp = element.textContent;
-	// var temp1 = parseInt(temp[0] + temp[1]);
 	tempSet++;
 	element.textContent = tempSet + "ºC";
-	ajustTemp();
+	updateTemp();
 }
 
 function decrease() {
 	var element = document.querySelector("#temp");
-	// var temp = element.textContent;
-	// var temp1 = parseInt(temp[0] + temp[1]);
 	tempSet--;
 	element.textContent = tempSet + "ºC";
-	ajustTemp();
-}
-
-function randomTemp() {
-	//generate a random temperature
-	return Math.floor(Math.random() * 10) + 18;
+	updateTemp();
 }
 
 function executeAllert(threat) {
