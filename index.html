@@ -42,7 +42,7 @@
 				<!-- list of blocks -->
 				<div class="blocks-div">
 					<div class="card" id="cozinha">
-						<div class="card-ident">
+						<div style="margin: 0">
 							<div class="card-ident">
 								<i class="material-icons">
 									<img
@@ -52,11 +52,10 @@
 								</i>
 								<h3 class="card-title">Cozinha</h3>
 							</div>
-						</div>
-						<div class="card-body">
+
 							<div class="buttons" id="buttons_cozinha">
-								Definir
-								<p id="temp">--ºC</p>
+								<h4>Termostato</h4>
+								<p id="temp" style="text-align:center">--ºC</p>
 								<button class="btn-pls" onclick="decrease()">
 									<img src="img/minus.png" alt="minus" />
 								</button>
@@ -64,12 +63,15 @@
 									<img src="img/plus.png" alt="plus" />
 								</button>
 							</div>
-							<div id="displayTemp_cozinha">
-								Temperatura atual
-								<p id="current_temp">
-									<span id="temp_cozinha">--ºC</span>
-								</p>
-							</div>
+						</div>
+						<div id="displayTemp_cozinha">
+							<h4 >Temperatura</h4>
+							<p
+								id="current_temp"
+								style="font-size: 30px;"
+							>
+								<span id="temp_cozinha" style="text-align:center">--ºC</span>
+							</p>
 						</div>
 					</div>
 					<div class="card">
