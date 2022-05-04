@@ -1,5 +1,7 @@
 var divisoes = ["cozinha", "sala", "varanda", "quarto"];
+
 var checked = false;
+
 var temp;
 var tempSet;
 var threat=null;
@@ -9,18 +11,21 @@ var regas; // lista de regas
 var localRega;
 //estas cenas da tem eu ja ponho a funcionar bem (correia)
 
+
 window.onload = () => {
 	checked = JSON.parse(localStorage.getItem("checkedSecurity"));
 
+	loadTemps();
+	setInterval(ajustTemp, 2000);
+
 	if (window.location.href.match("index.html") != null) {
+
 		if(!(JSON.parse(localStorage.getItem("list")) == null)){
 			document.querySelector("#security-alert ul").innerHTML = JSON.parse(localStorage.getItem("list"));
 		}
 		
 		statusSec(checked);
-		temp = randomTemp();
-		tempSet = temp;
-		setTemp();
+
 		if (checked) {
 
 			executeAllert();
@@ -106,60 +111,60 @@ function timeSet(bool) {
 
 
 //cozinha
+function loadTemps() {
+	//only if temps not in local storage create news and save ttemps in local storage
+	if (localStorage.getItem("temp") == null) {
+		temp = Math.floor(Math.random() * 10) + 18;
+		tempSet = temp;
+		localStorage.setItem("temp", JSON.stringify(temp));
+		localStorage.setItem("tempSet", JSON.stringify(tempSet));
+	} else {
+		temp = JSON.parse(localStorage.getItem("temp"));
+		tempSet = JSON.parse(localStorage.getItem("tempSet"));
+	}
 
+	updateTemp();
+}
 
-
-
-function setTemp() {
-	var element = document.querySelector("#temp");
+function updateTemp() {
+	var element = document.querySelector("#temp_cozinha");
 	element.textContent = temp + "ºC";
 
-	element = document.querySelector("#temp_cozinha");
+	element = document.querySelector("#temp");
 	element.textContent = tempSet + "ºC";
 
 	localStorage.setItem("temp", JSON.stringify(temp));
 	localStorage.setItem("tempSet", JSON.stringify(tempSet));
 }
 
-function randomTemp() {
-	//generate a random temperature
-	var temp = Math.floor(Math.random() * 10) + 18;
-	return temp;
-}
-
 function ajustTemp() {
-	//slowly in a intervall of a minute change temp to tempSet
+	//funcion that runs every second and checks if the temp is correct
+	if (temp != tempSet) {
+		if (temp > tempSet) {
+			temp--;
+		}
+		if (temp < tempSet) {
+			temp++;
+		}
+		updateTemp();
+	}
 }
 
 function increase() {
 	var element = document.querySelector("#temp");
 	tempSet++;
 	element.textContent = tempSet + "ºC";
-	console.log(tempSet + "ºC");
+	updateTemp();
 }
 
 function decrease() {
 	var element = document.querySelector("#temp");
 	tempSet--;
 	element.textContent = tempSet + "ºC";
-	console.log(tempSet + "ºC");
+	updateTemp();
 }
-
-function randomTemp() {
-	//generate a random temperature
-	return Math.floor(Math.random() * 10) + 18;
-}
-
-
-
-
-
 
 //security
-
-
-
-
 
 function reset() {
 	var elem = document.querySelector("#security-alert ul");
@@ -258,18 +263,20 @@ function generateId() {
 
 function value() {
 	var check = document.querySelector("#c1");
-	checked = check.checked;
+	//checked = check.checked;  //FIXME: tive que comentar isto porque estava a dar erro quando tentava aumentar a temp na cozinh (???)
 	localStorage.setItem("checkedSecurity", JSON.stringify(checked));
 }
 
 var Evideo = document.querySelector("#video");
 var Eplay = document.querySelector("#play");
 
-// Eplay.addEventListener("click", () => {
-// 	const isPaused = Evideo.paused;
-// 	Evideo[isPaused ? "play" : "pause"]();
-// 	Evideo.classList.toggle("u-none", !isPaused);
-// });
+if (Evideo && Eplay) {
+	Eplay.addEventListener("click", () => {
+		const isPaused = Evideo.paused;
+		Evideo[isPaused ? "play" : "pause"]();
+		Evideo.classList.toggle("u-none", !isPaused);
+	});
+}
 
 function chooseThreat() {
 	var message = null;
