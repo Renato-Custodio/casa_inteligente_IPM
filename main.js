@@ -6,6 +6,7 @@ var threat=null;
 var list;
 var num = 0; 
 var regas; // lista de regas
+var localRega;
 //estas cenas da tem eu ja ponho a funcionar bem (correia)
 
 window.onload = () => {
@@ -28,7 +29,10 @@ window.onload = () => {
 		document.getElementById("c1").checked = checked;
 		document.addEventListener("click", value);
 	}else if (window.location.href.match("rega.html") != null) {
-		
+		localRega = JSON.parse(localStorage.getItem("localRega"));
+		if(localRega == "Varanda") {
+			document.querySelector("#listaRegas").innerHTML = JSON.parse(localStorage.getItem("timeVaranda"));
+		}
 	}
 };
 
@@ -65,26 +69,36 @@ function timeSet(bool) {
 		div.style.color = "white";
 		div.appendChild(time);
 
+
+		setTimeout(function () {	
+			document.getElementById("time").remove();
+		}, 2000);
+
 		//real shit
 
 		console.log(pick1.value);
 		console.log(pick2.value);
 
 		var li = document.createElement("li");
-		li.appendChild(document.createTextNode(pick1.value));
-		li.appendChild(document.createTextNode(pick2.value));
-		
+		li.appendChild(document.createTextNode("Das "+pick1.value+" às "+pick2.value));
+		regas = document.querySelector("#listaRegas");
+		var regasLi = document.querySelector("#listaRegas").getElementsByTagName("li");
 		var divisao = document.querySelector("#divisoes").value;
-		console.log(divisao);
-		console.log(divisao=="Varanda");
+		
+		if(regasLi.length == 1 && regasLi[0].innerText == "Nada Agendado.") {
+			console.log(regasLi[0].innerText == "Nada Agendado.");
+			regasLi[0].remove();
+		}
+
 		if(divisao == "Varanda") {
+			console.log(document.querySelector("#listaRegas"));
+			
+			regas.appendChild(li);
 			localStorage.setItem("timeVaranda", JSON.stringify());
 		}
 		
-
-		setTimeout(function () {	
-			document.getElementById("time").remove();
-		}, 2000);
+		localStorage.setItem("timeVaranda", JSON.stringify(regas.innerHTML));
+		
 	}
 
 }
