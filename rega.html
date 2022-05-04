@@ -23,7 +23,7 @@
                     <a class="nav-link" id="nav-button" href="#" >Overview
                     </a>
                 </li>
-                <li class="active" onclick="location.href='rega.html'"">
+                <li class="active" onclick="location.href='rega.html'">
                     <a class="nav-link" id="nav-button" href="#">Rega</a>
                 </li>
                 <li onclick="location.href='seguranca.html'">
@@ -40,7 +40,12 @@
             <div class="blocks-div">
                 <div class="card rega" id="card-regra">
                     <h3 class="card-title">Rega
-                        <label class="card-text" style="font-size: small; margin-left: 5px;">Varanda</label>
+                        <label for="cars" style="font-size: small; margin-left: 5px;">no\a</label>
+
+                            <select id="divisoes">
+                            <option value="Varanda">Varanda</option>
+                            <option value="Quintal">Quintal</option>
+                            </select>
                     </h3>
                     <div class="active-regas">
                         <!-- a time interval picker -->
@@ -57,7 +62,7 @@
                                     </div>
                                 </div>
                                 <div id="time-interval-picker">
-                                    <button id="btn-set" type="button">
+                                    <button id="btn-set" type="button" onclick = timeSet()>
                                         Set
                                     </button>
                                 </div>

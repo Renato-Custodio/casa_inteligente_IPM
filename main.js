@@ -1,10 +1,11 @@
 var divisoes = ["cozinha", "sala", "varanda", "quarto"];
-var checked = false; //Security
+var checked = false;
 var temp;
 var tempSet;
 var threat=null;
 var list;
 var num = 0; 
+var regas; // lista de regas
 //estas cenas da tem eu ja ponho a funcionar bem (correia)
 
 window.onload = () => {
@@ -27,18 +28,21 @@ window.onload = () => {
 		document.getElementById("c1").checked = checked;
 		document.addEventListener("click", value);
 	}else if (window.location.href.match("rega.html") != null) {
-		// document.querySelector("#btn-set").addEventListener("click", timeSet);
+		
 	}
 };
 
+
+
+
 //rega
-function timeSet() {
+
+
+
+function timeSet(bool) {
 	let pick1 = document.getElementById("time1");
 	let pick2 = document.getElementById("time2");
-
 	if (!pick1.value || !pick2.value) {
-		let date1 = pick1.valueasDate;
-		let date2 = pick2.valueasDate;
 
 		if (pick1 <= pick2) {
 			let div = document.getElementById("time-interval-picker");
@@ -47,21 +51,51 @@ function timeSet() {
 			error.innerHTML = "Please select a valid time interval";
 			div.appendChild(error);
 			div.style.color = "red";
+
+			setTimeout(function () {	
+				document.getElementById("error").remove();
+			}, 2000);
+
 		}
 	} else {
-		if (document.getElementById("error")) {
-			document.getElementById("error").remove();
-		}
-
 		let time = document.createElement("span");
 		time.innerHTML = "Time interval set";
-
+		time.id = "time";
 		let div = document.getElementById("time-interval-picker");
 		div.style.color = "white";
 		div.appendChild(time);
+
+		//real shit
+
+		console.log(pick1.value);
+		console.log(pick2.value);
+
+		var li = document.createElement("li");
+		li.appendChild(document.createTextNode(pick1.value));
+		li.appendChild(document.createTextNode(pick2.value));
+		
+		var divisao = document.querySelector("#divisoes").value;
+		console.log(divisao);
+		console.log(divisao=="Varanda");
+		if(divisao == "Varanda") {
+			localStorage.setItem("timeVaranda", JSON.stringify());
+		}
+		
+
+		setTimeout(function () {	
+			document.getElementById("time").remove();
+		}, 2000);
 	}
+
 }
+
+
+
 //cozinha
+
+
+
+
 function setTemp() {
 	var element = document.querySelector("#temp");
 	element.textContent = temp + "ºC";
@@ -102,7 +136,16 @@ function randomTemp() {
 	return Math.floor(Math.random() * 10) + 18;
 }
 
+
+
+
+
+
 //security
+
+
+
+
 
 function reset() {
 	var elem = document.querySelector("#security-alert ul");
@@ -165,8 +208,6 @@ function executeAllert() {
 			document.querySelector("#top label").remove();
 		}
 	}
-
-	
 
 	setInterval(function () {
 		allert(true);
