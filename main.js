@@ -213,49 +213,41 @@ function executeAllert() {
 
 	original_color = element.style.backgroundColor;
 
-	function allert(active) {
-		threat = chooseThreat();
+	function allert() {
+		threat = chooseThreat(); //Escolhe uma ameaça
 		elementText = document.querySelector("#security-alert ul");
 
-		if (active) {
-			//pop up
-			var label = document.createElement("label");
-			label.appendChild(document.createTextNode("Alerta Intruso"));
-			label.id = "popUp";
-			document.querySelector("#top").appendChild(label);
-		} else {
-			num = JSON.parse(localStorage.getItem("num"));
-			num++;
-			//criar lista
-			var li = document.createElement("li");
-			//set up list
-			var txt = document.createTextNode(threat);
-			li.appendChild(txt);
-			var id = generateId();
-			li.innerHTML +=
-				'<button class="segura" id="' +
-				id +
-				'" onclick=removeItemList("' +
-				id +
-				'") type="button">X</button>';
-			list = document
-				.querySelector("#security-alert ul")
-				.getElementsByTagName("li");
-			if (list != null && list[0].innerText == "Sem ameaças.") {
-				elementText.innerHTML = "";
-			}
-			elementText.appendChild(li);
-			localStorage.setItem("list", JSON.stringify(elementText.innerHTML));
-			localStorage.setItem("num", JSON.stringify(num));
-			document.querySelector("#top label").remove();
+		executeAllertPopUp("Ameaça encontrada!");
+
+		num = JSON.parse(localStorage.getItem("num"));
+		num++;
+		//criar lista
+		var li = document.createElement("li");
+		//set up list
+
+		//very confusion code starts here :)
+		var txt = document.createTextNode(threat);
+		li.appendChild(txt);
+		var id = generateId();
+		li.innerHTML +=
+			'<button class="segura" id="' +
+			id +
+			'" onclick=removeItemList("' +
+			id +
+			'") type="button">X</button>';
+		list = document
+			.querySelector("#security-alert ul")
+			.getElementsByTagName("li");
+		if (list != null && list[0].innerText == "Sem ameaças.") {
+			elementText.innerHTML = "";
 		}
+		elementText.appendChild(li);
+		localStorage.setItem("list", JSON.stringify(elementText.innerHTML));
+		localStorage.setItem("num", JSON.stringify(num));
 	}
 
 	setInterval(function () {
-		allert(true);
-		setTimeout(function () {
-			allert(false);
-		}, 3000);
+		allert();
 	}, 20000);
 }
 

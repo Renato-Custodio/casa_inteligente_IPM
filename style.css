@@ -110,7 +110,6 @@ body {
 	justify-content: flex-start;
 }
 
-
 #displayTemp_cozinha {
 	margin: 60px 0 0 30px;
 	position: relative;
@@ -158,10 +157,6 @@ body {
 	border-radius: 10px;
 }
 
-/* #top {
-	display: flex;
-} */
-
 .segura {
 	float: right;
 	height: 15px;
@@ -172,10 +167,8 @@ body {
 #reset,
 #status {
 	display: inline-block;
-	margin: 0px;
 	margin-top: 10px;
 	margin-bottom: 30px;
-	padding: 0;
 }
 
 #reset {
@@ -412,4 +405,28 @@ body {
 /* Utility classes: */
 .u-none {
 	display: none;
+}
+
+.btn {
+	/* round left corners */
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+	background-color: rgb(58, 58, 58);
+	/* round right corners */
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	background-color: rgb(58, 58, 58);
+	/* color: white; */
+	margin: 10px 0px 0px 0px;
+	color: white;
+	width: 40px;
+	height: 30px;
+	text-align: center;
+}
+
+.segura {
+	border-radius: 20px;
+	background-color: rgb(58, 58, 58);
+	color: white;
+	text-align: center;
 }
