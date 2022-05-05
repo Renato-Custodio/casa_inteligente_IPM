@@ -13,7 +13,6 @@ var localRega;
 window.onload = () => {
 	checked = JSON.parse(localStorage.getItem("checkedSecurity"));
 
-	setInterval(ajustTemp, 2000);
 
 	if (window.location.href.match("index.html") != null) {
 		if (!(JSON.parse(localStorage.getItem("list")) == null)) {
@@ -21,6 +20,9 @@ window.onload = () => {
 				localStorage.getItem("list")
 			);
 		}
+
+		loadTemps();
+		setInterval(ajustTemp, 2000);
 
 		statusSec(checked);
 		loadTemps();
@@ -32,18 +34,81 @@ window.onload = () => {
 		document.getElementById("c1").checked = checked;
 		document.addEventListener("click", value);
 	} else if (window.location.href.match("rega.html") != null) {
+
+		var content;
+		
 		localRega = JSON.parse(localStorage.getItem("localRega"));
+		if(localRega == null) {
+			localRega = "Varanda";
+			localStorage.setItem("localRega", JSON.stringify(localRega));
+		}
+		document.querySelector("#elem").innerHTML = localRega;
+
+		if (JSON.parse(localStorage.getItem("timeVaranda")) == null) {
+			content = document.createElement("li");
+			var span = document.createElement("span");
+			span.setAttribute("class","item_rega");
+			span.appendChild(document.createTextNode("Nada Agendado."));
+			content.appendChild(span);
+			document.querySelector("#listaRegas").appendChild(content);
+			localStorage.setItem("timeVaranda", JSON.stringify(document.querySelector("#listaRegas").innerHTML));
+		}
+		
+		if(JSON.parse(localStorage.getItem("timeQuintal") == null)) {
+			if(document.querySelector("#listaRegas").length == 0) {
+				content = document.createElement("li");
+				var span = document.createElement("span");
+				span.setAttribute("class","item_rega");
+				span.appendChild(document.createTextNode("Nada Agendado."));
+				content.appendChild(span);
+				document.querySelector("#listaRegas").appendChild(content);
+			}
+			localStorage.setItem("timeQuintal", JSON.stringify(document.querySelector("#listaRegas").innerHTML));
+		}
+
+		document.querySelector("#divisoes").value = localRega;
 		if (localRega == "Varanda") {
-			document.querySelector("#listaRegas").innerHTML = JSON.parse(
-				localStorage.getItem("timeVaranda")
-			);
+			content = JSON.parse(localStorage.getItem("timeVaranda"));
+			
+			document.querySelector("#listaRegas").innerHTML = JSON.parse(localStorage.getItem("timeVaranda"));
+		} else {
+			content = JSON.parse(localStorage.getItem("timeQuintal"));
+			document.querySelector("#listaRegas").innerHTML = JSON.parse(localStorage.getItem("timeQuintal"));
 		}
 	}
 };
 
 //rega
 
-function timeSet(bool) {
+
+function deleteRega(butId) {
+	var list = document.querySelector("#listaRegas").getElementsByTagName("li");
+	for(var i = 0; i < list.length; i++) {
+		var id = list[i].querySelector("[type=button]").id;
+		if(id == butId) {
+			list[i].remove();
+		}
+	}
+
+	if(list.length == 0) {
+		var li = document.createElement("li");
+		var span = document.createElement("span");
+		span.setAttribute("class","item_rega");
+		span.appendChild(document.createTextNode("Nada Agendado."));
+		li.appendChild(span);
+		document.querySelector("#listaRegas").appendChild(li);
+	}
+	if(localRega == "Varanda"){
+		localStorage.setItem("timeVaranda",JSON.stringify(document.querySelector("#listaRegas").innerHTML));
+	} else {
+		localStorage.setItem("timeQuintal",JSON.stringify(document.querySelector("#listaRegas").innerHTML));
+	}
+}
+
+
+
+function timeSet() {
+
 	let pick1 = document.getElementById("time1");
 	let pick2 = document.getElementById("time2");
 	if (!pick1.value || !pick2.value) {
@@ -71,36 +136,60 @@ function timeSet(bool) {
 			document.getElementById("time").remove();
 		}, 1500);
 
-		//real shit
-
-		console.log(pick1.value);
-		console.log(pick2.value);
-
 		var li = document.createElement("li");
-		li.appendChild(
-			document.createTextNode("Das " + pick1.value + " às " + pick2.value)
-		);
-		regas = document.querySelector("#listaRegas");
-		var regasLi = document
-			.querySelector("#listaRegas")
-			.getElementsByTagName("li");
-		var divisao = document.querySelector("#divisoes").value;
 
-		if (regasLi.length == 1 && regasLi[0].innerText == "Nada Agendado.") {
-			console.log(regasLi[0].innerText == "Nada Agendado.");
+		var span = document.createElement("span");
+		span.appendChild(document.createTextNode("Das "+pick1.value+" às "+pick2.value));
+		span.setAttribute("class", "item_rega");
+		li.appendChild(span);
+		regas = document.querySelector("#listaRegas");
+		var regasLi = document.querySelector("#listaRegas").getElementsByTagName("li");
+		if(regasLi.length == 1 && regasLi[0].getElementsByTagName("span")[0].innerText == "Nada Agendado.") {
 			regasLi[0].remove();
 		}
 
-		if (divisao == "Varanda") {
-			console.log(document.querySelector("#listaRegas"));
+		var num = 0;
+		var id;
 
+		if(localRega == "Varanda") {
+			if (JSON.parse(localStorage.getItem("numVaranda") == null)) {
+				localStorage.setItem("numVaranda",JSON.stringify(num));
+			}
+			num = JSON.parse(localStorage.getItem("numVaranda"));
+			id = "button"+num;
+			num++;
+			localStorage.setItem("numVaranda",JSON.stringify(num));
+			li.innerHTML += '<button class="segura" id="'+id+'" onclick=deleteRega("'+id+'") type="button">X</button>';
 			regas.appendChild(li);
-			localStorage.setItem("timeVaranda", JSON.stringify());
-		}
+			localStorage.setItem("timeVaranda", JSON.stringify(regas.innerHTML));
 
-		localStorage.setItem("timeVaranda", JSON.stringify(regas.innerHTML));
+		} else {
+			if (JSON.parse(localStorage.getItem("numQuintal") == null)) {
+				localStorage.setItem("numQuintal",JSON.stringify(num));
+			}
+			num = JSON.parse(localStorage.getItem("numQuintal"));
+			id = "button"+JSON.parse(localStorage.getItem("numQuintal"));
+			num++;
+			localStorage.setItem("numQuintal",JSON.stringify(num));
+			li.innerHTML += '<button class="segura" id="'+id+'" onclick=deleteRega("'+id+'") type="button">X</button>';
+			regas.appendChild(li);
+			localStorage.setItem("timeQuintal", JSON.stringify(regas.innerHTML));
+		}
 	}
 }
+
+
+function divisao() {
+	localRega = document.querySelector("#divisoes").value;
+	localStorage.setItem("localRega",JSON.stringify(localRega));
+	if(localRega == "Varanda") {
+		document.querySelector("#listaRegas").innerHTML = JSON.parse(localStorage.getItem("timeVaranda"));
+	} else {
+		document.querySelector("#listaRegas").innerHTML = JSON.parse(localStorage.getItem("timeQuintal"));
+	}
+	document.querySelector("#elem").innerHTML = localRega;
+}
+
 
 //cozinha
 function loadTemps() {
