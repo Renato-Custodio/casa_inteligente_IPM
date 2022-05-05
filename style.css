@@ -173,8 +173,7 @@ body {
 
 #reset {
 	margin-left: 120px;
-	width:fit-content;
-	font-size: 10px;
+	width: 60px;
 }
 
 #security-alert ul {
