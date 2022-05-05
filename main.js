@@ -51,7 +51,7 @@ function timeSet(bool) {
 			let div = document.getElementById("time-interval-picker");
 			let error = document.createElement("span");
 			error.setAttribute("id", "error");
-			error.innerHTML = "Please select a valid time interval";
+			error.innerHTML = "Selecione um intervalo válido";
 			div.appendChild(error);
 			div.style.color = "red";
 
@@ -61,7 +61,7 @@ function timeSet(bool) {
 		}
 	} else {
 		let time = document.createElement("span");
-		time.innerHTML = "Time interval set";
+		time.innerHTML = "Intervalo de tempo definido";
 		time.id = "time";
 		let div = document.getElementById("time-interval-picker");
 		div.style.color = "white";
@@ -199,9 +199,9 @@ function reset() {
 function statusSec(check) {
 	var txt;
 	if (check) {
-		txt = document.createTextNode("Enabled");
+		txt = document.createTextNode("Ativo");
 	} else {
-		txt = document.createTextNode("Disabled");
+		txt = document.createTextNode("Desativo");
 	}
 	var status = document.querySelector("#status");
 	status.appendChild(txt);
