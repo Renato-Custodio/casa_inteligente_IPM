@@ -86,7 +86,11 @@
 							<h3 class="card-title">Rega</h3>
 						</div>
 						<div class="active-regas">
-							<p class="card-text">Varanda</p>
+							<select id="divisoes" onchange="listaDivisao()">
+								<option value="Varanda">Varanda</option>
+								<option value="Quintal">Quintal</option>
+							</select>
+							<ul id="listaDeRegas"></ul>
 						</div>
 					</div>
 					<div class="card" id="security-alert">
@@ -100,7 +104,7 @@
 							<p id="status"></p>
 							<button
 								id="reset"
-								class="btn"
+								class="camBtn"
 								onclick="reset()"
 								type="button"
 							>

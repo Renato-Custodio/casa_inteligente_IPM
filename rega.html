@@ -33,14 +33,21 @@
         </nav>
         <!-- create body container -->
         <div class="container">
-            <div class="current-page">
+            <div class="current-page" id="top">
                 <a>Rega</a>
             </div>
             <!-- list of blocks -->
             <div class="blocks-div">
                 <div class="card rega" id="card-regra">
-                    <h3 class="card-title">Rega
-                        <label style="font-size: small; margin-left: 5px;">no\a</label>
+                    <h3 class="card-title">
+                        <i class="material-icons">
+                            <img
+                                src="img/sprinkler-variant.png"
+                                alt="sprinkler"
+                            />
+                        </i>
+                        Rega
+                        <label style="font-size: small; margin-left: 40px;">Divisão</label>
                         <select id="divisoes" onchange=divisao()>
                             <option value="Varanda">Varanda</option>
                             <option value="Quintal">Quintal</option>
@@ -57,12 +64,12 @@
                                     </div>
                                     <div id="ops">Fim </div>
                                     <div>
-                                        <input type="time" name="time" id="time2" />
+                                        <input type="time" name="time" id="time2"/>
                                     </div>
                                 </div>
                                 <div id="time-interval-picker">
                                     <button id="btn-set" class="Btn" type="button" onclick = timeSet()>
-                                        Set
+                                        Confirmar
                                     </button>
                                 </div>
                             </div>

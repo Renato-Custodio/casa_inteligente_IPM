@@ -173,7 +173,8 @@ body {
 
 #reset {
 	margin-left: 120px;
-	width: 60px;
+	width:fit-content;
+	font-size: 10px;
 }
 
 #security-alert ul {
@@ -185,7 +186,7 @@ body {
 	padding-bottom: 0px;
 	width: 240px;
 	height: 60px;
-	overflow-y: scroll;
+	overflow-y: auto;
 	text-align: justify;
 }
 
@@ -434,4 +435,8 @@ body {
 
 .material-icons {
 	padding-right: 5px;
+}
+
+#listaDeRegas {
+	list-style: none;
 }
