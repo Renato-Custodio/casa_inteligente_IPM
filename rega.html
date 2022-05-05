@@ -20,14 +20,14 @@
 
             <ul class="navbar-ul">
                 <li onclick="location.href='index.html'">
-                    <a class="nav-link" id="nav-button" href="#" >Overview
+                    <a class="nav-link" id="nav-button" href="#">Overview
                     </a>
                 </li>
                 <li class="active" onclick="location.href='rega.html'">
                     <a class="nav-link" id="nav-button" href="#">Rega</a>
                 </li>
                 <li onclick="location.href='seguranca.html'">
-                    <a class="nav-link" id="nav-button" href="#" >Segurança</a>
+                    <a class="nav-link" id="nav-button" href="#">Segurança</a>
                 </li>
             </ul>
         </nav>
@@ -41,10 +41,10 @@
                 <div class="card rega" id="card-regra">
                     <h3 class="card-title">Rega
                         <label style="font-size: small; margin-left: 5px;">no\a</label>
-                            <select id="divisoes" onchange=divisao()>
+                        <select id="divisoes" onchange=divisao()>
                             <option value="Varanda">Varanda</option>
                             <option value="Quintal">Quintal</option>
-                            </select>
+                        </select>
                     </h3>
                     <div class="active-regas">
                         <!-- a time interval picker -->
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div id="time-interval-picker">
-                                    <button id="btn-set" type="button" onclick = timeSet()>
+                                    <button id="btn-set" type="button" onclick=timeSet()>
                                         Set
                                     </button>
                                 </div>
@@ -70,15 +70,12 @@
                     </div>
                 </div>
                 <div class="card rega" id="divLista">
-                    <h4 class="card-title" id = "rega4">Regas Agendadas:</h4>
+                    <h4 class="card-title" id="rega4">Regas Agendadas: <span id= "elem"></span> </h4>
                     <ul id="listaRegas">
-                        <li>
-                            Nada Agendado.
-                        </li>
                     </ul>
+                </div>
             </div>
-        </div>
-        <script src="main.js"></script>
+            <script src="main.js"></script>
 </body>
 
 </html>
