@@ -286,7 +286,7 @@ var Eplay = document.querySelector("#play");
 
 if (Evideo && Eplay) {
 	Eplay.addEventListener("click", () => {
-		const isPaused = Evideo.paused;
+		var isPaused = Evideo.paused;
 		Evideo[isPaused ? "play" : "pause"]();
 		Evideo.classList.toggle("u-none", !isPaused);
 	});
