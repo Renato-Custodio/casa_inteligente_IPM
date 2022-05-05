@@ -88,12 +88,12 @@ body {
 }
 
 .card {
-	padding: 20px 20px 20px 40px;
+	padding: 20px 20px 20px 20px;
 	border-radius: 10px;
 	background-color: rgb(58, 58, 58);
 	margin: 15px;
 	width: 400px;
-    height: 200px;
+	height: 250px;
 }
 
 .card {
@@ -107,7 +107,6 @@ body {
 	display: flex;
 	flex-direction: row;
 }
-
 
 .btn-pls {
 	/* round feft corners */
@@ -131,29 +130,8 @@ body {
 	text-align: center;
 }
 
-/*
-#btn-set {
-    /* round left corners */
-	/*
-	border-top-left-radius: 20px;
-	border-bottom-left-radius: 20px;
-	background-color: rgb(58, 58, 58);
-    /* round right corners */
-	/*
-	border-top-right-radius: 20px;
-	border-bottom-right-radius: 20px;
-	background-color: rgb(58, 58, 58);
-    /* color: white; */
-	/*
-    margin: 10px 0px 0px 0px;
-    color: white;
-	width: 40px;
-	height: 30px;
-	text-align: center;
-}*/
-
 .time {
-    background-color: red;
+	background-color: red;
 }
 
 #listaRegas {
@@ -165,7 +143,6 @@ body {
 	font-size: 18px;
 }
 
-
 .Btn {
 	position: relative;
 	display: inline-block;
@@ -173,8 +150,8 @@ body {
 	border: none;
 	border-radius: 4px;
 	padding: 0 16px;
-	min-width: 64px;
-	height: 36px;
+	min-width: fit-content;
+	height: fit-content;
 	vertical-align: middle;
 	text-align: center;
 	text-overflow: ellipsis;
@@ -274,6 +251,22 @@ body {
 	opacity: 0;
 }
 
-#time-interval-picker{
+#time-interval-picker {
 	padding-top: 15px;
+}
+
+#ops {
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+#divisoes {
+	width: fit-content;
+	height: fit-content;
+	margin-left: 5px;
+	font-size: medium;
+}
+
+.material-icons {
+	padding-right: 5px;
 }

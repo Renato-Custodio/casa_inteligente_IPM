@@ -38,24 +38,33 @@
             </div>
             <!-- list of blocks -->
             <div class="blocks-div">
-                <div class="card rega" id="card-regra">
-                    <h3 class="card-title">Rega
-                        <label for="cars" style="font-size: small; margin-left: 5px;">no\a</label>
-                            <select id="divisoes">
-                            <option value="Varanda">Varanda</option>
-                            <option value="Quintal">Quintal</option>
-                            </select>
-                    </h3>
+                <div class="card">
+                    <div class="card-ident">
+                        <i class="material-icons">
+                            <img
+                                src="img/sprinkler-variant.png"
+                                alt="sprinkler"
+                            />
+                        </i>
+                        <h3 class="card-title">Rega
+                        <label for="cars" style="font-size: medium; margin-left: 30px;">Divisão</label>
+                            <select class="custom-select">
+                                <option value="0">Varanda</option>
+                                <option value="1">Jardim Frente</option>
+                                <option value="2">Jardim Traseiras</option>
+                          </select>
+                        </h3>
+                    </div>
                     <div class="active-regas">
                         <!-- a time interval picker -->
                         <div class="time-interval">
                             <div>
                                 <div style="font-size: small;">
-                                    Início
+                                    <div id="ops">Início </div>
                                     <div>
                                         <input type="time" name="time" id="time1" />
                                     </div>
-                                    Fim
+                                    <div id="ops">Fim </div>
                                     <div>
                                         <input type="time" name="time" id="time2" />
                                     </div>

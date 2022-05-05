@@ -57,7 +57,7 @@ function timeSet(bool) {
 
 			setTimeout(function () {
 				document.getElementById("error").remove();
-			}, 2000);
+			}, 1500);
 		}
 	} else {
 		let time = document.createElement("span");
@@ -69,7 +69,7 @@ function timeSet(bool) {
 
 		setTimeout(function () {
 			document.getElementById("time").remove();
-		}, 2000);
+		}, 1500);
 
 		//real shit
 
